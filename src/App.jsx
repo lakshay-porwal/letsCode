@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useTransform, useReducedMotion } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -26,14 +26,6 @@ export default function App() {
   const { scrollY } = useScroll();
   const prefersReducedMotion = useReducedMotion();
 
-  // Spring scroll progress
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 25,
-    restDelta: 0.001
-  });
-
   // Parallax transformations for background orbs (slower movement)
   const bgParallaxY = useTransform(scrollY, [0, 3000], [0, 400]);
 
@@ -43,12 +35,6 @@ export default function App() {
       {/* Global Grain and Vignette Overlays */}
       <div className="grain-overlay" />
       <div className="vignette-overlay" />
-
-      {/* Scroll Progress Bar at the top of the viewport */}
-      <motion.div 
-        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-accentIndigo via-purple-500 to-accentIndigo z-[9999] origin-[0%]"
-        style={{ scaleX }}
-      />
 
       <div className="relative min-h-screen bg-bgBase text-textPrimary overflow-hidden font-sans">
         
